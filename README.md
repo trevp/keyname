@@ -36,19 +36,19 @@ In particular:
 
 To create a new fingerprint, we append counters to the public key and SHA256 hash the result.   The resulting hash is encoded as base32, and assigned a "score" equal to the number of consonant->vowel and vowel->consonant transitions in each pseudoword.  This process is repeated until a fingerprint is discovered with an adequate score:
 
-best_score =  5, iters =          1   agh6ib - 57ut - 4jf2x - n4zm - xqsan5
-best_score =  6, iters =          8   agamqs - tufs - osgqv - kd42 - dsdt7y
-best_score =  7, iters =         15   h6euja - eh5b - uel4q - ssap - ajmqnd
-best_score =  8, iters =         17   fkalss - 6di7 - 55obb - zhit - yuvzgj
-best_score = 10, iters =        200   t2sahh - 5zwf - imuof - utoh - domsp3
-best_score = 11, iters =        455   maqofl - epyo - cqgnh - fpos - x6ufif
-best_score = 12, iters =       1545   mpowiw - tcop - yaleb - 26aj - 4ugqs2
-best_score = 13, iters =      11836   nafsbj - sicv - kepri - nekw - nepeuh
-best_score = 14, iters =      21574   yipazm - jvlx - adib7 - jifu - zekaxv
-best_score = 15, iters =      29872   5pifiy - gwil - ruqad - uiuv - ofoji5
-best_score = 16, iters =     452824   lavbis - viwp - ajweb - xoli - xmejis
-best_score = 17, iters =    4443784   umqahj - guli - lagub - upeh - wefjif
-best_score = 18, iters =   14352196   duconi - huho - baj5w - yejo - epevig
+    best_score =  5, iters =          1   agh6ib - 57ut - 4jf2x - n4zm - xqsan5
+    best_score =  6, iters =          8   agamqs - tufs - osgqv - kd42 - dsdt7y
+    best_score =  7, iters =         15   h6euja - eh5b - uel4q - ssap - ajmqnd
+    best_score =  8, iters =         17   fkalss - 6di7 - 55obb - zhit - yuvzgj
+    best_score = 10, iters =        200   t2sahh - 5zwf - imuof - utoh - domsp3
+    best_score = 11, iters =        455   maqofl - epyo - cqgnh - fpos - x6ufif
+    best_score = 12, iters =       1545   mpowiw - tcop - yaleb - 26aj - 4ugqs2
+    best_score = 13, iters =      11836   nafsbj - sicv - kepri - nekw - nepeuh
+    best_score = 14, iters =      21574   yipazm - jvlx - adib7 - jifu - zekaxv
+    best_score = 15, iters =      29872   5pifiy - gwil - ruqad - uiuv - ofoji5
+    best_score = 16, iters =     452824   lavbis - viwp - ajweb - xoli - xmejis
+    best_score = 17, iters =    4443784   umqahj - guli - lagub - upeh - wefjif
+    best_score = 18, iters =   14352196   duconi - huho - baj5w - yejo - epevig
 
 On my Macbook Air, this code can make close to 2 million trials per second per core.  With 10 million trials, it finds a score=17 ~80% of the time.  With 100 million trials, it finds a score=18 ~80% of the time.
 
