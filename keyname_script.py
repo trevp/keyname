@@ -37,4 +37,10 @@ def run_test(num_trials, max_iters, target_score, print_all=False):
 	print("mean = %d, stddev=%d" % (mean(itersList), stddev(itersList)))
 
 
-run_test(1, 1000000, 17, print_all=True)
+run_test(1, 10000000, 17, print_all=True)
+run_test(1, 10000000, 17, print_all=True)
+run_test(1, 10000000, 17, print_all=True)
+
+run_test(1, 100000000, 18, print_all=True)
+run_test(1, 100000000, 18, print_all=True)
+run_test(1, 100000000, 18, print_all=True)

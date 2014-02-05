@@ -9,36 +9,24 @@
 char* alphabet =   "abcdefghijklmnopqrstuvwxyz234567";
 
 #define NUM_CHARS_PER_KEYNAME 25
-#define NUM_BITS_PER_KEYNAME 125
 
-// Encode 'in' as lowercase RFC 4648 base32 into 'out'
-void base32_bin2chr(uint8_t* out, uint8_t* in)
+// Encode 'in' as 125-bit lowercase RFC 4648 base32 into 'out'
+void base32_bin2chr2(uint8_t* out, uint8_t* in)
 {
-	uint8_t* inptr = in;
-	uint8_t inmask = 0x80;
-	uint8_t tmp = 0;
-	uint8_t tmpmask = 0x10;
-	uint8_t count = 0;
-		
-	for (count = 0; count < NUM_BITS_PER_KEYNAME; count++) {
-		if ((*inptr) & inmask)
-			tmp |= tmpmask;
-
-		if (tmpmask == 1) {
-			*out++ = alphabet[tmp];
-			tmp = 0;
-			tmpmask = 0x10;
-		}
-		else
-			tmpmask >>= 1;
-
-		if (inmask == 1) {
-			inptr++;
-			inmask = 0x80;
-		}
-		else
-			inmask >>= 1;
+	// Handle 40 bits per loop, 3 loops, then finish the last 5 bits
+	for (int count=0; count < 3; count++) {		
+		out[0] = alphabet[ in[0] >> 3 ]; 
+		out[1] = alphabet[ ((in[0] << 2) | (in[1] >> 6)) & 0x1F ]; 
+		out[2] = alphabet[ (in[1] >> 1) & 0x1F ]; 
+		out[3] = alphabet[ ((in[1] << 4) | (in[2] >> 4)) & 0x1F ]; 
+		out[4] = alphabet[ ((in[2] << 1) | (in[3] >> 7)) & 0x1F ]; 
+		out[5] = alphabet[ (in[3] >> 2) & 0x1F ]; 
+		out[6] = alphabet[ ((in[3] << 3) | (in[4] >> 5)) & 0x1F ]; 
+		out[7] = alphabet[ in[4] & 0x1F ];
+		out += 8;
+		in += 5;
 	}
+	out[0] = alphabet[ in[0] >> 3 ]; 
 }
 
 int score_chunk(uint8_t* in, uint8_t num_bytes) 
@@ -131,7 +119,7 @@ void search_keyname(uint8_t* key_to_be_hashed,
 	for (count = 0; count < max_iter; count++) {
 		u32top(key_to_be_hashed + key_len, count);
 		SHA256(key_to_be_hashed, key_len + 4, digest);
-		base32_bin2chr(chars, digest);
+		base32_bin2chr2(chars, digest);
 		score = calc_score(chars);
 		if (score > *best_score) {
 			*best_score = score;

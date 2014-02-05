@@ -1,6 +1,6 @@
 
 
-Key Names - an experimental format for public-key fingerprints
+An experimental format for public-key fingerprints
 ====
 
 Users sometimes have to compare, transcribe, and read aloud public-key fingerprints.  Typical fingerprints are hard to use:
@@ -11,33 +11,47 @@ Users sometimes have to compare, transcribe, and read aloud public-key fingerpri
 
     OTR:  C4E40F71 A92175F8 597A29A7 CB7E0943 B27014FF
 
-So we are making a format based around "psuedowords", which is hopefully easier to use:
+We are hoping to improve useability with a format based around "pseudowords".  On generating a new keypair, the user's computer will spend a few seconds searching for a fingerprint with a high "score".  For example:
 
-    #1:   erocoj - igif - koziq - cfaw - nem3ak
+    Score=17:   wuvovr - tir3 - niruv - peng - hibita
     
-    #2:   otenw5 - oxuq - 7heto - igof - ujahok
+    Score=17:   byadep - mayo - eqcni - idah - logutu
 
-    #3:   4keqoy - aduo - sosuk - vepi - yuyoqw
+    Score=17:   hheute - ixej - urufe - unit - qefaiv
+
+    Score=18:   duconi - huho - baj5w - yejo - epevig
+
+    Score=18:   ezobiv - wxax - zugar - 2ube - adijuv
+
+    Score=18:   7yilun - isub - ezinx - axaj - ifoyel   
 
 In particular:
  * Base32 (RFC 4648) is chosen to encode the public key's hash
-     * This consists of 26 letters and 6 numbers.  The preference towards letters in the RFC 4648 alphabet is helpful for forming pseudowords.
+     * This consists of 26 letters and 6 numbers.  The bias towards letters in RFC 4648 is helpful for forming pseudowords.
  * 25 characters are grouped into pseudowords of length 6-4-5-4-6.  
-     * 25 base32 characters encodes a hash prefix of 125 bits, which is an adequate security level.
+     * 25 base32 characters encodes a hash prefix of 125 bits, which gives adequate security.
      * The pseudowords have varying lengths to aid in detecting transcription errors.
-     * The longest pseudowords are placed at the beginning and end, since those are the most likely to be checked.
-    * No pseudowords of the same length are adjacent.  
+     * The longest pseudowords are placed at the beginning and end, since those are most likely to be checked.
+     * No pseudowords of the same length are adjacent.  
 
-To create a new fingerprint, we append counter values to the public key and hash the result.   The resulting hash is encoded as base32, and assigned a "score" based on how the number of consonant->vowel and vowel->consonant transitions within each pseudoword.  This process is repeated until a fingerprint is discovered with an adequate score:
+To create a new fingerprint, we append counters to the public key and SHA256 hash the result.   The resulting hash is encoded as base32, and assigned a "score" equal to the number of consonant->vowel and vowel->consonant transitions in each pseudoword.  This process is repeated until a fingerprint is discovered with an adequate score:
 
-    best_score =  5, iters =          1   awijft - eica - 625yb - 4w5x - rfc7jr
-    best_score =  6, iters =          2   4qeigx - lwnr - rglc3 - maq5 - fiqq4t
-    best_score =  7, iters =          7   wtrmob - maow - cnez2 - rczu - m4vvh2
-    best_score =  9, iters =         13   3pq7j2 - ajhp - cfeij - cruv - majjog
-    best_score = 10, iters =        244   aafpe5 - 2ekw - ymkey - gika - omtcee
-    best_score = 11, iters =        350   kraxux - fk24 - emwas - 2qoy - bqo2he
-    best_score = 12, iters =       1337   qosopd - iloz - rwxvu - znud - 7fpoar
-    best_score = 13, iters =       9977   ubales - pioj - giqxi - krig - smp5ek
-    best_score = 14, iters =      20852   pevexa - vtob - 3leoa - manq - kubiuv
-    best_score = 15, iters =     389718   oguxs2 - ukiz - gjnur - diqe - qxihuh
-    best_score = 17, iters =    1179214   erocoj - igif - koziq - cfaw - nem3ak
+best_score =  5, iters =          1   agh6ib - 57ut - 4jf2x - n4zm - xqsan5
+best_score =  6, iters =          8   agamqs - tufs - osgqv - kd42 - dsdt7y
+best_score =  7, iters =         15   h6euja - eh5b - uel4q - ssap - ajmqnd
+best_score =  8, iters =         17   fkalss - 6di7 - 55obb - zhit - yuvzgj
+best_score = 10, iters =        200   t2sahh - 5zwf - imuof - utoh - domsp3
+best_score = 11, iters =        455   maqofl - epyo - cqgnh - fpos - x6ufif
+best_score = 12, iters =       1545   mpowiw - tcop - yaleb - 26aj - 4ugqs2
+best_score = 13, iters =      11836   nafsbj - sicv - kepri - nekw - nepeuh
+best_score = 14, iters =      21574   yipazm - jvlx - adib7 - jifu - zekaxv
+best_score = 15, iters =      29872   5pifiy - gwil - ruqad - uiuv - ofoji5
+best_score = 16, iters =     452824   lavbis - viwp - ajweb - xoli - xmejis
+best_score = 17, iters =    4443784   umqahj - guli - lagub - upeh - wefjif
+best_score = 18, iters =   14352196   duconi - huho - baj5w - yejo - epevig
+
+On my Macbook Air, this code can make close to 2 million trials per second per core.  With 10 million trials, it finds a score=17 ~80% of the time.  With 100 million trials, it finds a score=18 ~80% of the time.
+
+Acknowledgements
+===
+Based on discussions on messaging@moderncrypto.org mailing lists.  In particular, Robert Ransom suggested using variable-sized "pseudo-words", and Nathan Wilcox suggested searching for "vanity" strings of a particular form.
