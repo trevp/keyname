@@ -1,6 +1,6 @@
 
 
-An experimental format for public-key fingerprints
+Experimental "pseudoword" fingerprints
 ====
 
 Users sometimes have to compare, transcribe, and read aloud public-key fingerprints.  Typical fingerprints are hard to use:
