@@ -26,12 +26,12 @@ We are hoping to improve useability with "pseudowords".  On generating a new key
     Score=18:   7yilun - isub - ezinx - axaj - ifoyel   
 
 In particular:
- * Base32 (RFC 4648) is chosen to encode the public key's hash
+ * Base32 (RFC 4648) is chosen to encode the public key's hash.
      * This consists of 26 letters and 6 numbers.  The bias towards letters in RFC 4648 is helpful for forming pseudowords.
  * 25 characters are grouped into pseudowords of length 6-4-5-4-6.  
      * 25 base32 characters encodes a hash prefix of 125 bits, which gives adequate security.
      * The pseudowords have varying lengths to aid in detecting transcription errors.
-     * The longest pseudowords are placed at the beginning and end, since those are most likely to be checked.
+     * The longest pseudowords are placed at the beginning and end, since those are most likely to be checked when users are performing visual comparison.
      * No pseudowords of the same length are adjacent.  
 
 To create a new fingerprint, we append counters to the public key and SHA256 hash the result.   The resulting hash is encoded as base32, and assigned a "score" equal to the number of consonant->vowel and vowel->consonant transitions in each pseudoword.  This process is repeated until a fingerprint is discovered with an adequate score:
@@ -54,4 +54,4 @@ On my Macbook Air, this code can make close to 2 million trials per second per c
 
 Acknowledgements
 ===
-Based on discussions on messaging@moderncrypto.org mailing lists.  In particular, Robert Ransom suggested using variable-sized "pseudo-words", and Nathan Wilcox suggested searching for "vanity" strings of a particular form.
+Based on discussions on the messaging@moderncrypto.org mailing list.  In particular, Robert Ransom suggested using variable-sized chunks, and Nathan Wilcox suggested searching for fingerprints that users like more.
