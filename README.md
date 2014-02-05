@@ -1,6 +1,6 @@
 
 
-Experimental "pseudoword" fingerprints
+"Pseudoword" fingerprints
 ====
 
 Users sometimes have to compare, transcribe, and read aloud public-key fingerprints.  Typical fingerprints are hard to use:
