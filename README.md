@@ -11,7 +11,7 @@ Users sometimes have to compare, transcribe, and read aloud public-key fingerpri
 
     OTR:  C4E40F71 A92175F8 597A29A7 CB7E0943 B27014FF
 
-We are hoping to improve useability with a format based around "pseudowords".  On generating a new keypair, the user's computer will spend a few seconds searching for a fingerprint with a high "score".  For example:
+We are hoping to improve useability with "pseudowords".  On generating a new keypair, the user's computer will spend a few seconds searching for a fingerprint whose pseudowords have a high "score".  For example:
 
     Score=17:   wuvovr - tir3 - niruv - peng - hibita
     
