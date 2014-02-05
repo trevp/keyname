@@ -34,7 +34,7 @@ In particular:
      * The longest pseudowords are placed at the beginning and end, since those are most likely to be checked when users are performing visual comparison.
      * No pseudowords of the same length are adjacent.  
 
-To create a new fingerprint, we append counters to the public key and SHA256 hash the result.   The resulting hash is encoded as base32, and assigned a "score" equal to the number of consonant->vowel and vowel->consonant transitions in each pseudoword.  This process is repeated until a fingerprint is discovered with an adequate score:
+To create a new fingerprint, we append counters to the public key and SHA256 hash the result.   The resulting hash is encoded as base32, and assigned a "score" equal to the number of consonant/vowel and vowel/consonant transitions in each pseudoword.  This process is repeated until a fingerprint is discovered with an adequate score:
 
     best_score =  5, iters =          1   agh6ib - 57ut - 4jf2x - n4zm - xqsan5
     best_score =  6, iters =          8   agamqs - tufs - osgqv - kd42 - dsdt7y
