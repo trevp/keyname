@@ -21,10 +21,8 @@ def run_test(num_trials, max_iters, target_score, print_all=False):
 		else:
 			print iters
 
-run_test(1, 10000000, 17, print_all=True)
-run_test(1, 10000000, 17, print_all=True)
-run_test(1, 10000000, 17, print_all=True)
-
-run_test(1, 100000000, 18, print_all=True)
-run_test(1, 100000000, 18, print_all=True)
-run_test(1, 100000000, 18, print_all=True)
+run_test(1, 1100000000, 18, True)
+run_test(1, 1100000000, 18, True)
+run_test(1, 1100000000, 18, True)
+run_test(1, 1100000000, 18, True)
+run_test(1, 1100000000, 18, True)
